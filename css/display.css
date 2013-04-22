@@ -1,0 +1,9 @@
+ul.insta-hash, ul.insta-user { 
+	clear: both;
+	margin: 0;
+}
+ul.insta-hash li, ul.insta-user li { 
+	float: left; 
+	margin: 0 0.5em 0.5em 0;
+	list-style: none;
+}

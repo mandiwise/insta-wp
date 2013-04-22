@@ -1,0 +1,13 @@
+#make-submit { 
+	margin-right: 10px;
+}
+pre.insta-shortcode { 
+	max-width: 90%; 
+	background: #ececec; 
+	padding: 10px;
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	word-wrap: break-word;
+}
