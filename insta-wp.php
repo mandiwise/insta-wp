@@ -4,18 +4,15 @@
 Plugin Name: Insta WP
 Plugin URI: http://mandiwise.com/wordpress/insta-wp/
 Description: A WordPress implementation of the jQuery Spectragram plugin. Use this plugin to create and use simple shortcodes that embed an image feed based on a username or hash tag.
-Version: 1.0
+Version: 1.1
 Author: Mandi Wise
 Author URI: http://mandiwise.com
-License: GPLv2 or later (+ MIT for plugin settings framework)
+License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
   
 */
 
 class Insta_WP {
-	 
-	private $plugin_path;
-    private $wpsf;
 	 
 	// * Constructor *
 		// - initializes the plugin by setting localization, filters, and administration functions -
@@ -32,24 +29,13 @@ class Insta_WP {
 		// - register site styles and scripts -
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_scripts' ) );
-	
-	    // - add the settings sub-menu -
-		add_action( 'admin_menu', array( $this, 'register_insta_wp_admin' ) );
 
-        // - include the settings framework -
-        $this->plugin_path = plugin_dir_path( __FILE__ );
-        require_once( $this->plugin_path .'wp-settings-framework.php' );
-        $this->wpsf = new WordPressSettingsFramework( $this->plugin_path . 'views/settings.php' );
+        // - require the settings and initiate the plugin settings class -
+		require_once(sprintf("%s/views/admin.php", dirname(__FILE__)));
+		$InstaWP_Settings = new InstaWP_Settings();
 
-		// - add reset button to shortcode settings form -
-		add_action( 'wpsf_before_settings_fields', array($this, 'reset_shortcode_button') );
-
-		// - show generated shortcode after submit -
-		add_action( 'wpsf_after_settings', array($this, 'generate_insta_shortcode') );
+		add_action( 'instawp_after_form', array( $this, 'generate_insta_shortcode' ) );
         
-        // - validate the settings input -
-        add_filter( $this->wpsf->get_option_group() .'_settings_validate', array( $this, 'validate_settings') );
-
 		// - register the shortcode for the Instagram feed -
 		add_action( 'init', array( $this, 'register_shortcodes') );
 
@@ -89,76 +75,36 @@ class Insta_WP {
 	}
 
 	// * Core Functions *
-	
-	// - include settings sub-menu -
-	function register_insta_wp_admin() {
-		add_submenu_page( 'plugins.php', 'Insta WP', 'Insta WP', 'manage_options', 'insta-wp-options', array( $this, 'insta_wp_admin_menu' ) );
-	}
-	
-	function insta_wp_admin_menu() {
-        ?>
-			<div class="wrap">
-				<?php screen_icon(); ?>
-				<h2>Insta WP Options</h2>
-				<?php 
-				$this->wpsf->settings();
-			?>
-	        </div>
-        <?php
-    }
-    
-    function reset_shortcode_button() {
-	    echo '<input id="reset" type="submit" class="button-secondary" value="Reset" />';
-    }
     
     function generate_insta_shortcode() {
-    	$settings = wpsf_get_settings( $this->plugin_path .'views/settings.php' );
-		$feed_display = $settings['settings_display_displayby'];
-		$hash = $settings['settings_display_hash'];
-		$username = $settings['settings_display_username'];
-		$show = $settings['settings_display_max'];
-		$size = $settings['settings_display_size'];
+		$feed_display = instawp_option( 'displayby' );
+		$hash = instawp_option( 'hash' );
+		$username = instawp_option( 'username' );
+		$show = instawp_option( 'max' );
+		$size = instawp_option( 'size' );
 
-		if ($feed_display != 'none') {
+		if ( $feed_display != 'none' ) {
 			echo '<div id="insta-shortcode">';
-			echo '<h3>Volia! Your Shorcode</h3>';
-			echo '<p>Paste this shortcode into the WordPress post or page editor.</p>';
+			echo '<h3>'. __( 'Volia! Your Shorcode', 'insta-wp-locale' ) .'</h3>';
+			echo '<p>'. __( 'Paste this shortcode into the WordPress post or page editor.', 'insta-wp-locale' ) .'</p>';
 		
-			if ($feed_display == 'byhash') {
+			if ( $feed_display == 'byhash' ) {
 				echo '<pre class="insta-shortcode">[insta-hash tag="'.$hash.'" size="'.$size.'" show="'.$show.'"]</pre>';
 			}
 		
-			elseif ($feed_display == 'byuser') {
+			elseif ( $feed_display == 'byuser' ) {
 				echo '<pre class="insta-shortcode">[insta-user username="'.$username.'" size="'.$size.'" show="'.$show.'"]</pre>';
 			}
 			
 			else {
 				return;
 			}
-			echo '<p><strong>Play it safe!</strong> Only add one of each type of Insta WP shortcode per post/page.</p>';
+			echo '<p><strong>'. __( 'Play it safe! ', 'insta-wp-locale') .'</strong>'. __( 'Only add one of each type of Insta WP shortcode per post/page.', 'insta-wp-locale' ) .'</p>';
 			echo '</div>';
 		}
 		else { 
 			return; 
 		}
-    }
-    
-    // - validates Insta WP options settings -
-    function validate_settings( $input ) {
-		// - create array for storing the validated options  
-		$output = array();  
-  
-		// - loop through each of the incoming options -
-		foreach( $input as $key => $value ) {  
-	  
-			// - check to see if the current option has a value and then process it -  
-			if( isset( $input[$key] ) ) {  
-				$output[$key] = strip_tags( stripslashes( $input[ $key ] ) );  
-			}
-	  
-		}
-
-		return apply_filters( 'validate_settings', $output, $input ); 
     }
 	
 	// - creates shortcodes, enqueues and localizes the related display script -
@@ -169,15 +115,15 @@ class Insta_WP {
 			'show' => '10'
 		), $atts ));
 		
-		if (!$tag) {
+		if ( !$tag ) {
 			
-			$error = "<p style='color: red;'><em>Danger Will Robinson! Your shortcode is missing a hash tag. Try copying and pasting your shortcode directly from the Insta WP settings page.</em></p>";
+			$error = '<p style="color: red;"><em>'. __( 'Danger Will Robinson! Your shortcode is missing a hash tag. Try generating and pasting your shortcode directly from the Insta WP settings page.', 'insta-wp-locale' ) .'</em></p>';
 			return $error;
 
 		} else {
-		
-			$clientid = wpsf_get_setting( wpsf_get_option_group( $this->plugin_path .'views/settings.php' ), 'api', 'clientID' );
-			$token = wpsf_get_setting( wpsf_get_option_group( $this->plugin_path .'views/settings.php' ), 'api', 'accessToken' );
+			
+			$clientid = instawp_option( 'clientID' );
+			$token = instawp_option( 'accessToken' );
 		
 			wp_enqueue_script( 'insta-wp-jquery-script' );
 			wp_enqueue_script( 'insta-wp-display-script' );
@@ -207,15 +153,15 @@ class Insta_WP {
 			'show' => '10'
 		), $atts ));
 		
-		if (!$username) {
+		if ( !$username ) {
 			
-			$error = "<p style='color: red;'><em>Danger Will Robinson! Your shortcode is missing a username. Try copying and pasting your shortcode directly from the Insta WP settings page.</em></p>";
+			$error = '<p style="color: red;"><em>'. __( 'Danger Will Robinson! Your shortcode is missing a username. Try generating and pasting your shortcode directly from the Insta WP settings page.', 'insta-wp-locale' ) .'</em></p>';
 			return $error;
 
 		} else {
 		
-			$clientid = wpsf_get_setting( wpsf_get_option_group( $this->plugin_path .'views/settings.php' ), 'api', 'clientID' );
-			$token = wpsf_get_setting( wpsf_get_option_group( $this->plugin_path .'views/settings.php' ), 'api', 'accessToken' );
+			$clientid = instawp_option( 'clientID' );
+			$token = instawp_option( 'accessToken' );
 		
 			wp_enqueue_script( 'insta-wp-jquery-script' );
 			wp_enqueue_script( 'insta-wp-display-script' );
@@ -225,7 +171,7 @@ class Insta_WP {
 				) 
 			);
 			
-			wp_enqueue_script( 'insta-wp-user-script');
+			wp_enqueue_script( 'insta-wp-user-script' );
 			wp_localize_script( 'insta-wp-user-script', 'user_vars', array(
 					'user_query' => $username,
 					'user_size' => $size,

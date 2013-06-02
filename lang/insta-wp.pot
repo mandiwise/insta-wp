@@ -1,0 +1,168 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Insta WP\n"
+"POT-Creation-Date: 2013-06-02 11:34-0800\n"
+"PO-Revision-Date: 2013-06-02 11:35-0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../insta-wp.php:88
+msgid "Volia! Your Shorcode"
+msgstr ""
+
+#: ../insta-wp.php:89
+msgid "Paste this shortcode into the WordPress post or page editor."
+msgstr ""
+
+#: ../insta-wp.php:102
+msgid "Play it safe! "
+msgstr ""
+
+#: ../insta-wp.php:102
+msgid "Only add one of each type of Insta WP shortcode per post/page."
+msgstr ""
+
+#: ../insta-wp.php:120
+msgid ""
+"Danger Will Robinson! Your shortcode is missing a hash tag. Try generating "
+"and pasting your shortcode directly from the Insta WP settings page."
+msgstr ""
+
+#: ../insta-wp.php:158
+msgid ""
+"Danger Will Robinson! Your shortcode is missing a username. Try generating "
+"and pasting your shortcode directly from the Insta WP settings page."
+msgstr ""
+
+#: ../views/admin.php:19
+msgid "Instagram Authentication"
+msgstr ""
+
+#: ../views/admin.php:20
+msgid "Instagram Feed Shortcode"
+msgstr ""
+
+#: ../views/admin.php:36
+msgid "Default Field"
+msgstr ""
+
+#: ../views/admin.php:138
+msgid "Instagram Client ID:"
+msgstr ""
+
+#: ../views/admin.php:139
+msgid ""
+"Once you've registered a new client with the Instagram API, enter its Client "
+"ID here."
+msgstr ""
+
+#: ../views/admin.php:145
+msgid "Access Token:"
+msgstr ""
+
+#: ../views/admin.php:146
+msgid "Add your assigned access token. Generate one "
+msgstr ""
+
+#: ../views/admin.php:146
+msgid "here"
+msgstr ""
+
+#: ../views/admin.php:154
+msgid "Display images based on:"
+msgstr ""
+
+#: ../views/admin.php:158
+msgid " Please select "
+msgstr ""
+
+#: ../views/admin.php:159
+msgid "A hash tag"
+msgstr ""
+
+#: ../views/admin.php:160
+msgid "A username"
+msgstr ""
+
+#: ../views/admin.php:165
+msgid "Hash tag:"
+msgstr ""
+
+#: ../views/admin.php:166
+msgid ""
+"Add your hash tag as letters and/or numbers only. Do not include \"#\" "
+"before the text."
+msgstr ""
+
+#: ../views/admin.php:172
+msgid "Username:"
+msgstr ""
+
+#: ../views/admin.php:173
+msgid "Add your Instagram username (e.g. \"johnsmith\")."
+msgstr ""
+
+#: ../views/admin.php:179
+msgid "Number of photos to show:"
+msgstr ""
+
+#: ../views/admin.php:207
+msgid "Image size:"
+msgstr ""
+
+#: ../views/admin.php:211
+msgid "Small"
+msgstr ""
+
+#: ../views/admin.php:212
+msgid "Medium"
+msgstr ""
+
+#: ../views/admin.php:213
+msgid "Big"
+msgstr ""
+
+#: ../views/admin.php:232
+msgid "In order to use this plugin you'll need to "
+msgstr ""
+
+#: ../views/admin.php:232
+msgid "register for the Instagram API"
+msgstr ""
+
+#: ../views/admin.php:236
+msgid "Customize the settings below to make your shortcode:"
+msgstr ""
+
+#: ../views/admin.php:272
+msgid "Sorry! You don't have sufficient permissions to access this page."
+msgstr ""
+
+#: ../views/admin.php:295
+msgid "Please enter a Client ID."
+msgstr ""
+
+#: ../views/admin.php:300
+msgid "Please enter an Access Token."
+msgstr ""
+
+#: ../views/settings.php:3
+msgid "Insta WP Settings"
+msgstr ""
+
+#: ../views/settings.php:8
+msgid "Save Changes"
+msgstr ""
+
+#: ../views/settings.php:9
+msgid "Reset"
+msgstr ""

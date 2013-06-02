@@ -18,13 +18,12 @@ Watch for the following features in future releases of Insta WP:
 
 * Option to create an image feed based on latitude and longitude coordinates
 * Add an image feed pagination option to the shortcode (so a visitor can load more images from the feed by clicking a button)
-* Localization of the plugin text
 
 ## Installation
 
 1. Upload the insta-wp folder and its contents to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to the Appearance > Widget page, place the widget in your sidebar, and adjust the settings as needed.
+3. Go to the Settings > Insta WP sub-menu and adjust the settings as needed.
 
 ## Frequently Asked Questions
 
@@ -70,6 +69,10 @@ According to Spectragram's developer this likely has to do with the method by wh
 
 ## Changelog
 
+### 1.1
+* Refactored settings to avoid potential conflicts with other plugins.
+* Localized all plugin text (ready for translation).
+
 ### 1.0
 * Plugin initial release.
 
@@ -78,7 +81,6 @@ According to Spectragram's developer this likely has to do with the method by wh
 Insta WP could not have been made possible without:
 
 * Tom McFarlin's time-saving [WordPress Plugin Boilerplate](https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate). Why start from scratch when you don't have to?
-* Gilbert Pellegrom's [WordPress Settings Framework](https://github.com/gilbitron/WordPress-Settings-Framework) for plugins. Easy to work with, highly recommended.
 * Adrian Quevedo's fantastic [jQuery Spectragram](https://github.com/adrianengine/jquery-spectragram) plugin... no fuss, no muss when it comes to working with the Instagram API and jQuery.
 
 ## Author Information
@@ -89,7 +91,7 @@ This plugin was originally created by [Mandi Wise](http://mandiwise.com/).
 
 Copyright (c) 2013, Mandi Wise
 
-Insta WP is licensed under the GPL v2 or later (+ MIT for Wordpress Settings Framework).
+Insta WP is licensed under the GPL v2 or later.
 
 > This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License, version 2, as published by the Free Software Foundation.
 
